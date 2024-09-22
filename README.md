@@ -14,15 +14,23 @@ OS Platform
 Role Variables
 --------------
 
-設定方法の詳細については[defaults/main.yml](defaults/main.yml)のサンプルコードを参照してください。
+### [defaults/main.yml](defaults/main.yml)
 
-### `redis_extra_cfg`
+設定方法の詳細については[defaults/main.yml](defaults/main.yml)のサンプルコードなどを参照してください。
+
+#### `redis_extra_cfg`
 
 Redisの設定
 
-### `redis_port`
+#### `redis_port`
 
 Redisのポート
+
+### [vars/main.yml](vars/main.yml)
+
+設定値については[vars/main.yml](vars/main.yml)を参照してください。
+
+#### `redis_config_dir`
 
 Example Playbook
 --------------
