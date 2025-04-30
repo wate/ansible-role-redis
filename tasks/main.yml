@@ -2,15 +2,12 @@
 - name: Import package task
   ansible.builtin.import_tasks:
     file: package.yml
-  tags:
-    - role_redis_package
+  tags: role_redis_package
 - name: Import setting task
   ansible.builtin.import_tasks:
     file: setting.yml
-  tags:
-    - role_redis_setting
+  tags: role_redis_setting
 - name: Include service task
   ansible.builtin.import_tasks:
     file: service.yml
-  tags:
-    - role_redis_service
+  tags: role_redis_service

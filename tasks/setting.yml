@@ -3,4 +3,4 @@
   ansible.builtin.blockinfile:
     path: "{{ redis_config_dir }}/redis.conf"
     block: "{{ redis_extra_cfg }}"
-  notify: restart redis
+  notify: Restart redis

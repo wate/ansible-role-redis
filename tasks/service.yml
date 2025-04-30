@@ -9,4 +9,5 @@
     port: "{{ redis_port | string }}"
     proto: tcp
     rule: allow
-  when: redis_allow_connect_other_host | default(false)
+    from_ip: "{{ redis_allow_connect_other_host | default('any') }}"
+  when: redis_allow_connect_other_host is defined
