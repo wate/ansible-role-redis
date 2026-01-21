@@ -28,14 +28,14 @@
     - name: Assert package
       ansible.builtin.assert:
         that:
-          - ansible_facts.packages['redis']
+          - ansible_facts.packages['redis'] is defined
     ## サービスのテスト
     - name: Populate service facts
       ansible.builtin.service_facts:
     - name: Assert service
       ansible.builtin.assert:
         that:
-          - ansible_facts.services['redis-server.service']
+          - ansible_facts.services['redis-server.service'] is defined
           - ansible_facts.services['redis-server.service']['state'] == 'running'
           - ansible_facts.services['redis-server.service']['status'] == 'enabled'
     ## 待受ポートのテスト
