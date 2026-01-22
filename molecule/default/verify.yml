@@ -13,6 +13,8 @@
     - name: Assert user
       ansible.builtin.assert:
         that: result is not changed
+        fail_msg: "redis user is not properly configured"
+        success_msg: "redis user is properly configured"
     ## グループのテスト
     - name: Add group check
       ansible.builtin.group:
@@ -21,6 +23,8 @@
     - name: Assert group
       ansible.builtin.assert:
         that: result is not changed
+        fail_msg: "redis group is not properly configured"
+        success_msg: "redis group is properly configured"
     ## パッケージのテスト
     - name: Gather the package facts
       ansible.builtin.package_facts:
@@ -29,6 +33,8 @@
       ansible.builtin.assert:
         that:
           - ansible_facts.packages['redis'] is defined
+        fail_msg: "Redis package is not installed"
+        success_msg: "Redis package is installed"
     ## サービスのテスト
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -38,6 +44,8 @@
           - ansible_facts.services['redis-server.service'] is defined
           - ansible_facts.services['redis-server.service']['state'] == 'running'
           - ansible_facts.services['redis-server.service']['status'] == 'enabled'
+        fail_msg: "redis-server service is not running or not enabled"
+        success_msg: "redis-server service is running and enabled"
     ## 待受ポートのテスト
     - name: Gather facts on listening ports
       community.general.listen_ports_facts:
@@ -50,3 +58,5 @@
       ansible.builtin.assert:
         that:
           - 6379 in listen_tcp_posts
+        fail_msg: "Redis is not listening on port 6379"
+        success_msg: "Redis is listening on port 6379"
