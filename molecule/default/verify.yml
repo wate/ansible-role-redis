@@ -2,29 +2,28 @@
 - name: Verify
   hosts: all
   gather_facts: false
-  check_mode: true
   become: true
   tasks:
     ## ユーザーのテスト
-    - name: Add user check
-      ansible.builtin.user:
-        name: redis
-      register: result
+    - name: Get user facts
+      ansible.builtin.getent:
+        database: passwd
+        key: redis
     - name: Assert user
       ansible.builtin.assert:
-        that: result is not changed
-        fail_msg: "redis user is not properly configured"
-        success_msg: "redis user is properly configured"
+        that: getent_passwd['redis'] is defined
+        fail_msg: "redis user does not exist"
+        success_msg: "redis user exists"
     ## グループのテスト
-    - name: Add group check
-      ansible.builtin.group:
-        name: redis
-      register: result
+    - name: Get group facts
+      ansible.builtin.getent:
+        database: group
+        key: redis
     - name: Assert group
       ansible.builtin.assert:
-        that: result is not changed
-        fail_msg: "redis group is not properly configured"
-        success_msg: "redis group is properly configured"
+        that: getent_group['redis'] is defined
+        fail_msg: "redis group does not exist"
+        success_msg: "redis group exists"
     ## パッケージのテスト
     - name: Gather the package facts
       ansible.builtin.package_facts:
